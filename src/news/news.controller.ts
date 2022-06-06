@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Query, Post } from '@nestjs/common';
 import { NewsArticleDTO } from './new.dto';
 import { NewsService } from './news.service';
 @Controller('news')
@@ -12,7 +12,12 @@ export class NewsController {
   }
 
   @Get()
-  getNews() {
-    return this.newsService.getNews();
+  findNews(@Query('searchKey') searchKey: string) {
+    console.log('findNews triggered');
+    if (searchKey) {
+      return this.newsService.findNews(searchKey);
+    } else {
+      return this.newsService.getNews();
+    }
   }
 }
