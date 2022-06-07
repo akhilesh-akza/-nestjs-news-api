@@ -8,7 +8,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsModule } from './news/news.module';
 import { LoginModule } from './login/login.module';
-import { logger } from './middleware/logger.middleware';
+import { logger } from './common/middleware/logger.middleware';
 
 @Module({
   imports: [NewsModule, LoginModule],

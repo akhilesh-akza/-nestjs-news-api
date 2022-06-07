@@ -7,12 +7,19 @@ import { CredentialsDTO } from './login.dto';
 export class LoginController {
   constructor(private loginService: LoginService) {}
 
+  // @Res({ passthrough: true }) res: Response
+  // fixes the the Express response bypassing the interceptor
+
   @Post()
-  loginHandler(@Body() credentials: CredentialsDTO, @Res() res: Response) {
+  loginHandler(
+    @Body() credentials: CredentialsDTO,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     const isAuthorized = this.loginService.isAuthorized(credentials);
     const statusCode = isAuthorized ? 200 : 401;
-    res.status(statusCode).json({
+    res.status(statusCode);
+    return {
       authenticated: isAuthorized,
-    });
+    };
   }
 }
